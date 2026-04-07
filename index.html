@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Abner Monteiro | Desenvolvedor</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+            /* O segredo do Dark Mode: Variáveis CSS */
+            :root {
+                --bg-color: #f8fafc;
+                --text-color: #000000;
+                --card-bg: #ffffff;
+                --primary-color: #0284c7;
+                --border-color: #e2e8f0;
+                --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+
+            [data-theme="dark"] {
+                --bg-color: #29040c;
+                --text-color: #f1f5f9;
+                --card-bg: #661325;
+                --primary-color: #dce9ed;
+                --border-color: #70051c;
+                --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            }
+
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                font-family: 'Inter', sans-serif;
+                transition: background-color 0.3s, color 0.3s;
+                margin: 0;
+                padding: 40px 20px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .container {
+                max-width: 800px;
+                width: 100%;
+            }
+
+            /* Botão Tema */
+            #theme-toggle {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: var(--card-bg);
+                color: var(--text-color);
+                border: 1px solid var(--border-color);
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+
+            #theme-toggle:hover {
+                transform: scale(1.1) rotate(15deg);
+            }
+
+            header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin: 0;
+                font-weight: 700;
+            }
+
+            .subtitle {
+                color: var(--primary-color);
+                font-size: 1.2rem;
+                font-weight: 600;
+                min-height: 30px; /* Evita que a tela pule enquanto digita */
+            }
+
+            .cursor {
+                animation: blink 0.8s infinite;
+            }
+            @keyframes blink { 50% { opacity: 0; } }
+
+            .contato-links {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+
+            .contato-links a {
+                text-decoration: none;
+                color: var(--text-color);
+                background-color: var(--card-bg);
+                padding: 8px 15px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color);
+                transition: 0.3s;
+                font-size: 0.9rem;
+            }
+
+            .contato-links a:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-3px);
+            }
+
+            /* Efeito de Vidro (Glassmorphism sutil) nos Cards */
+            .card {
+                background-color: var(--card-bg);
+                padding: 30px;
+                border-radius: 15px;
+                margin-bottom: 25px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                border: 1px solid var(--border-color);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--hover-shadow);
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin-top: 0;
+                border-bottom: 2px solid var(--border-color);
+                padding-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .icon-title {
+                color: var(--primary-color);
+            }
+
+            /* Projetos */
+            .grid-projetos {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .projeto-item {
+                background-color: var(--bg-color);
+                padding: 20px;
+                border-radius: 10px;
+                border: 1px solid var(--border-color);
+            }
+
+            .projeto-item h3 { margin-top: 0; font-size: 1.1rem; }
+
+            .tech-tag {
+                background-color: rgb(158, 4, 4);
+                color: rgb(255, 255, 255);
+                padding: 4px 10px;
+                border-radius: 5px;
+                font-size: 0.8rem;
+                display: inline-block;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            /* Skills Cards com ícones grandões */
+            .skills-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .skill-box {
+                background-color: var(--bg-color);
+                border: 1px solid var(--border-color);
+                padding: 15px 20px;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-width: 90px;
+                transition: 0.3s;
+            }
+
+            .skill-box:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: scale(1.05);
+            }
+
+            .skill-icon {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            /* Timeline Minimalista */
+            .timeline-item {
+                padding-left: 20px;
+                border-left: 3px solid var(--primary-color);
+                margin-bottom: 20px;
+                position: relative;
+            }
+
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: -8px;
+                top: 5px;
+                width: 13px;
+                height: 13px;
+                background-color: var(--primary-color);
+                border-radius: 50%;
+            }
+
+            .timeline-item h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
+            .date { font-size: 0.9rem; color: #64748b; margin: 0 0 10px 0; font-style: italic; }
+
+            /* 1. O container do botão (Arredondado mas não círculo perfeito) */
+            .whatsapp-float-oficial {
+                position: fixed;
+                width: 60px;
+                height: 60px;
+                bottom: 30px; /* Distância da parte de baixo */
+                right: 30px;  /* Distância da direita */
+                
+                /* Cor verde oficial do WhatsApp */
+                background-color: #25d366; 
+                color: #FFF;
+                
+                /* Deixa os cantos arredondados, mas o ícone de dentro dá o formato final */
+                border-radius: 50px; 
+                
+                text-align: center;
+                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+                z-index: 2000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.3s ease, background-color 0.3s ease;
+                text-decoration: none; /* Remove sublinhado se houver */
+            }
+
+            /* Efeito de hover profissional: escurece um pouco e sobe */
+            .whatsapp-float-oficial:hover {
+                transform: translateY(-5px); 
+                background-color: #1ebe57; /* Um verde um pouco mais escuro ao passar o mouse */
+            }
+
+            /* 2. Estilo do Ícone que vem do FontAwesome */
+            .whatsapp-icon-oficial {
+                font-size: 38px; /* Controla o tamanho do ícone oficial dentro do botão */
+                margin-top: 2px;  /* Leve ajuste de alinhamento vertical */
+            }
+
+            /* Responsividade para celulares: o botão fica um pouco menor */
+            @media screen and (max-width: 767px) {
+                .whatsapp-float-oficial {
+                    width: 50px;
+                    height: 50px;
+                    bottom: 20px;
+                    right: 20px;
+                }
+                .whatsapp-icon-oficial {
+                    font-size: 30px;
+                }
+            }
+
+            /* --- FOTO DE PERFIL --- */
+
+            /* Contêiner flexível para alinhar foto e nome no centro */
+            .header-main-info {
+                display: flex;
+                align-items: center; /* Alinha verticalmente */
+                justify-content: center; /* Centraliza o bloco na página */
+                gap: 20px; /* Espaço entre a foto e o nome */
+                margin-bottom: 10px; /* Espaço abaixo deste bloco */
+            }
+
+            /* Estilização da Foto em Círculo com Borda */
+            .profile-pic {
+                width: 100px;  /* Largura da foto */
+                height: 100px; /* Altura da foto (igual à largura para ser um círculo perfeito) */
+                border-radius: 50%; /* Transforma o quadrado em círculo */
+                object-fit: cover; /* Garante que a foto não fique esticada, cortando as bordas se necessário */
+                border: 4px solid rgba(255, 5, 5, 0.615); /* A borda usando a cor principal do tema */
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra sutil para dar profundidade */
+                transition: transform 0.3s; /* Animação suave no hover */
+            }
+
+            /* Efeito de interação ao passar o mouse */
+            .profile-pic:hover {
+                transform: scale(1.05); /* A foto cresce levemente */
+            }
+
+            /* Ajuste no H1 existente para garantir que o alinhamento flexível funcione bem */
+            header h1 {
+                font-size: 2.5rem;
+                margin: 0; /* Remove margens padrão que podem atrapalhar o alinhamento flex */
+                font-weight: 700;
+            }
+
+            /* --- ESTILO PARA O NAVEGADOR INTERATIVO (IFRAME) --- */
+
+            .browser-mockup {
+                width: 100%;
+                height: 750px; /* Altura da janelinha interativa */
+                background-color: var(--card-bg);
+                display: flex;
+                flex-direction: column;
+                border-bottom: 1px solid var(--border-color);
+                position: relative; /* Para o overlay funcionar */
+            }
+
+            /* O topo do falso navegador */
+            .mockup-header {
+                background-color: #e2e8f0;
+                padding: 8px 12px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            [data-theme="dark"] .mockup-header {
+                background-color: #1e293b;
+            }
+
+            /* Bolinhas coloridas do Mac */
+            .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+            .red { background-color: #ff5f56; }
+            .yellow { background-color: #ffbd2e; }
+            .green { background-color: #27c93f; }
+
+            /* Barra de URL falsa */
+            .mockup-url {
+                margin-left: 10px;
+                font-size: 0.7rem;
+                color: var(--text-color);
+                font-family: monospace;
+                background: var(--bg-color);
+                padding: 3px 10px;
+                border-radius: 12px;
+                opacity: 0.8;
+            }
+
+            /* A janela do site em si */
+            .mini-site-iframe {
+                width: 100%;
+                flex-grow: 1;
+                border: none;
+                /* Faz o site achar que está numa tela de celular, ativando o design responsivo */
+                max-width: 100%; 
+            }
+
+            /* Efeito Hover: O botão aparece em cima do iframe quando passa o mouse */
+            .iframe-overlay {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: calc(100% - 30px); /* Cobre o iframe, mas deixa o cabeçalho do navegador livre */
+                background-color: rgba(15, 23, 42, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .browser-mockup:hover .iframe-overlay {
+                opacity: 1;
+            }
+
+            .btn-demo {
+                background-color: var(--primary-color);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transform: translateY(15px);
+                transition: transform 0.3s ease, background-color 0.3s;
+            }
+
+            .browser-mockup:hover .btn-demo {
+                transform: translateY(0);
+            }
+
+            .btn-demo:hover {
+                background-color: #0ea5e9;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <button id="theme-toggle" title="Alternar Modo Escuro"><i class="fas fa-moon"></i></button>
+
+        <div class="container">
+            
+        <header>
+            <div class="header-main-info">
+                <img src="C:\Users\abner\OneDrive\Desktop\Programming\Portfolio\img\abner_pro.jpeg" alt="Foto de Abner Monteiro Arruda" class="profile-pic">
+                <h1>ABNER MONTEIRO ARRUDA</h1>
+            </div>
+
+            <p class="subtitle"><span id="typing-text"></span><span class="cursor">|</span></p>
+            
+            <div class="contato-links">
+                <a href="#"><i class="fas fa-phone"></i> (11) 9 9383-5136</a>
+                <a href="gmail:abnerm.arruda@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://linkedin.com/in/abner-monteiro-arruda-1674b0287" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/Abnelsong" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </header>
+
+        <section class="card">
+            <h2><i class="fas fa-bullseye icon-title"></i>Sobre mim</h2>
+            <p>Utilizo a lógica de processos, organização e disciplina desenvolvidas em experiências profissionais anteriores para criar soluções eficientes em tecnologia.</p>            </section>
+        </section>
+        
+        <section class="card">
+            <div class="projeto-item">
+                <div class="projeto-info">
+                    <h3>Meus projetos</h3>
+                    <p>Site oficial da A Era do Vidro desenvolvido para apresentação institucional, catálogos e orçamentos, com foco em praticidade.</p>
+                    <div class="tags-container">
+                        <span class="tech-tag">HTML</span> 
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>  
+                <div class="browser-mockup">
+                    <div class="mockup-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="mockup-url">C:\Users\abner\OneDrive\Desktop\Programming\AEV/index.html</span>
+                    </div>
+                        
+                    <iframe src="C:\Users\abner\OneDrive\Desktop\Programming\AEV/index.html" class="mini-site-iframe" title="Site A Era do Vidro"></iframe>
+                        
+                    <div class="iframe-overlay">
+                        <a href="C:\Users\abner\OneDrive\Desktop\Programming\AEV/index.html" target="_blank" class="btn-demo"><i class="fas fa-external-link-alt"></i> Acessar Site Completo</a>
+                    </div>
+                </div>                  
+            </div>
+        </section>
+        <section class="card">
+            <h2><i class="fas fa-laptop-code icon-title"></i> Tecnologias & Habilidades</h2>
+            <div class="skills-container">
+                <div class="skill-box">
+                    <i class="fab fa-python skill-icon"></i>
+                    <span>Python</span>
+                </div>
+                <div class="skill-box">
+                    <i class="fab fa-js skill-icon"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="skill-box">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <span>HTML5</span>
+                </div>
+                <div class="skill-box">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <span>CSS3</span>
+                </div>
+                <div class="skill-box">
+                    <i class="fas fa-database skill-icon"></i>
+                    <span>SQL / MySQL</span>
+                </div>
+                    <div class="skill-box">
+                    <i class="fab fa-git-alt skill-icon"></i>
+                    <span>Git / GitHub</span>
+                </div>
+            </div>
+        </section>
+
+            <section class="card">
+                <h2><i class="fas fa-briefcase icon-title"></i> Experiência & Educação</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Análise e Desenvolvimento de Sistemas (ADS)</h3>
+                        <p class="date">UNICID | Cursando - 3º Semestre</p>
+                    </div>
+                     <div class="timeline-item">
+                        <h3>Inglês:</h3>
+                        <p class="date">Nível A2</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Auxiliar Técnico Administrativo</h3>
+                        <p class="date">Setembro/2017 – Atual</p>
+                        <p>Gestão de processos, armazenamento de dados avançado no Excel, conferência de especificações técnicas e responsável pelo site da empresa.</p>
+                    </div>
+                </div>
+            </section>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            <a href="https://wa.me/5511993835136?text=Olá,%20vi%20seu%20portifólio" 
+                class="whatsapp-float-oficial" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                title="POde me chamr no Zap!">
+                            
+                <i class="fab fa-whatsapp whatsapp-icon-oficial"></i>
+            </a>        
+        </div>
+
+        <script>// 1. Lógica do Modo Escuro (Dark Mode)
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+            const icon = themeToggleBtn.querySelector('i');
+
+            // Verifica se o usuário já escolheu o modo escuro antes (salvo no navegador)
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                body.setAttribute('data-theme', currentTheme);
+                if (currentTheme === 'dark') {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                }
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (body.getAttribute('data-theme') === 'dark') {
+                    body.removeAttribute('data-theme');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // 2. Efeito de Máquina de Escrever (Typing Effect)
+            const textEl = document.getElementById('typing-text');
+            const textsToType = [
+                "Estudante de ADS", 
+                "Desenvolvedor em Formação", 
+                "Foco em Front-end"
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentText = textsToType[textIndex];
+                
+                if (isDeleting) {
+                    textEl.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    textEl.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 50 : 100;
+
+                // Pausa no final da frase
+                if (!isDeleting && charIndex === currentText.length) {
+                    typeSpeed = 2000; 
+                    isDeleting = true;
+                } 
+                // Troca para a próxima frase
+                else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % textsToType.length;
+                    typeSpeed = 500;
+                }
+
+                setTimeout(type, typeSpeed);
+            }
+
+            // Inicia a animação quando a página carrega
+            document.addEventListener('DOMContentLoaded', type);
+        </script>
+    </body>
+</html>
